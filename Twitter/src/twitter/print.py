@@ -6,8 +6,10 @@ Created on May 31, 2013
 import urllib
 import json
 
-resp_json = urllib.urlopen("http://search.twitter.com/search.json?q=Microsoft")
-resp = json.load(resp_json)
-results = resp['results']
-for i in range(len(results)):
-    print results[i]['text'].encode('utf-8')
+url = "http://search.twitter.com/search.json?q=microsoft&page="
+for i in range(1, 11):
+    resp_json = urllib.urlopen(url + str(i))
+    resp = json.load(resp_json)
+    results = resp['results']
+    for j in range(len(results)):
+        print results[j]['text'].encode('utf-8')
