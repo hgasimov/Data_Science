@@ -12,4 +12,5 @@ for i in range(1, 11):
     resp = json.load(resp_json)
     results = resp['results']
     for j in range(len(results)):
-        print results[j]['text'].encode('utf-8')
+        print results[j]['text'].encode('utf-8')   
+        
