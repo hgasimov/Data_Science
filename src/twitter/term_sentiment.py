@@ -23,12 +23,12 @@ def main():
                     print term + ' ' + str(term_sent)
             
 def calcScore(s, scores):
-     n = .0 # score
-     words = s.strip().split(' ')
-     for word in words:
-         if word in scores:
-             n+= scores[word]
-     return n
+    n = .0 # score
+    words = s.strip().split(' ')
+    for word in words:
+        if word in scores:
+            n+= scores[word]
+    return n
                 
 
 if __name__ == '__main__':
