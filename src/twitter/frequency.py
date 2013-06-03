@@ -9,7 +9,9 @@ def main():
     for tweet in tweets:
         jtweet = json.loads(tweet)
         if 'text' in jtweet: 
-            for term in jtweet['text'].split(' '):
+            for term in jtweet['text'].strip().split(' '):
+                term = term.strip().replace('(', '').replace(')', '').replace('\n', '').strip()
+                if len(term) == 0: continue
                 if term in termfreq: 
                     termfreq[term] += 1
                 else:
@@ -17,7 +19,7 @@ def main():
                 total += 1
     
     for term in termfreq:
-        print "%s %f" % (term, termfreq[term]/total)    
+        print "%s %f" % (term.strip(), termfreq[term]/total)    
 
 if __name__ == '__main__':
     main()
