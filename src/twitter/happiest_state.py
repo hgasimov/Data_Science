@@ -26,7 +26,7 @@ def main():
                 username = jtweet['user']['name'].strip()
                 maxstate = username[0] + username[-1]
                 maxscore = score 
-                if DEBUG: print "%s : %s %f" % (username, maxstate, score)
+                if DEBUG: print "%s : %s : %s %f" % (jtweet['text'], username, maxstate, score)
     
     if DEBUG: print '\nMax state is %s with score %f' %(maxstate, maxscore)
     print maxstate
