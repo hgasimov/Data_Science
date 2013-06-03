@@ -1,4 +1,5 @@
 import sys, json
+import Queue
 
 def countTags(tweet_file):
     tagCount = {}
@@ -21,29 +22,25 @@ def printTags(tagCount):
     for htag in tagCount:
         print '%s : %f' % (htag, tagCount[htag]) 
 
-
-'''
-    calculates max value in the dictionary ten times.
-    sorting was not used because it takes NLogN time
-'''    
+    
 def printTopTen(tagCount):
     if not tagCount: return # if tagCount is empty
     if len(tagCount) < 10:
-        print 'Not enough entries in the dictionary, exitting ...'
+        print 'Not enough entries in the dictionary, exiting ...'
         return
     
-    for i in range(10):
-        maxtag = ''
-        maxcount = -1
-        for htag in tagCount:
-            if tagCount[htag] > maxcount:
-                maxcount = tagCount[htag]
-                maxtag = htag
-        
-        print '%s %.1f' % (maxtag, maxcount)
-        tagCount[maxtag] = 0
-                
-        
+    pqueue = Queue.PriorityQueue(10)
+    for htag in tagCount:
+        if not pqueue.full():
+            pqueue.put((tagCount[htag], htag))
+        elif tagCount[htag] > pqueue.queue[0][0]:
+            pqueue.get()
+            pqueue.put((tagCount[htag], htag))
+    
+    while not pqueue.empty():
+        count, htag = pqueue.get()
+        print '%s %.1f' % (htag, count)
+    
     
 def main():        
     tweet_file = open(sys.argv[1])
