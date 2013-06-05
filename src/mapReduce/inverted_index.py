@@ -13,16 +13,16 @@ def mapper(record):
     key = record[0]
     value = record[1]
     words = value.split()
-    for w in words:
-      mr.emit_intermediate(w, key)
+    for w in words:        
+        mr.emit_intermediate(w, key)
 
 def reducer(key, list_of_values):
     # key: word
     # value: list of documents where the word appears
-    mr.emit((key, list_of_values))
-
+    s = set(list_of_values) # filter duplicates out
+    mr.emit((key, list(s)))
 
 
 if __name__ == '__main__':
-  inputdata = open(sys.argv[1])
-  mr.execute(inputdata, mapper, reducer)
+    inputdata = open(sys.argv[1])
+    mr.execute(inputdata, mapper, reducer)
